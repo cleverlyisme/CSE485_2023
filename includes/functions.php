@@ -22,27 +22,27 @@ function format_date(string $string): string
     return $date->format('F d, Y');                      
 }
 
-set_error_handler('handle_error');
-function handle_error($error_type, $error_message, $error_file, $error_line)
-{
-    throw new ErrorException($error_message, 0, $error_type, $error_file, $error_line); 
-}
+// set_error_handler('handle_error');
+// function handle_error($error_type, $error_message, $error_file, $error_line)
+// {
+//     throw new ErrorException($error_message, 0, $error_type, $error_file, $error_line); 
+// }
 
-set_exception_handler('handle_exception');
-function handle_exception($e)
-{
-    error_log($e);                      
-    http_response_code(500);              
-    echo "<h1>Sorry, a problem occurred</h1>   
-          The site's owners have been informed. Please try again later.";
-}
+// set_exception_handler('handle_exception');
+// function handle_exception($e)
+// {
+//     error_log($e);                      
+//     http_response_code(500);              
+//     echo "<h1>Sorry, a problem occurred</h1>   
+//           The site's owners have been informed. Please try again later.";
+// }
 
-register_shutdown_function('handle_shutdown');
-function handle_shutdown()
-{
-    $error = error_get_last();            
-    if ($error !== null) {        
-        $e = new ErrorException($error['message'], 0, $error['type'], $error['file'], $error['line']);
-        handle_exception($e);           
-    }
-}
+// register_shutdown_function('handle_shutdown');
+// function handle_shutdown()
+// {
+//     $error = error_get_last();            
+//     if ($error !== null) {        
+//         $e = new ErrorException($error['message'], 0, $error['type'], $error['file'], $error['line']);
+//         handle_exception($e);           
+//     }
+// }
