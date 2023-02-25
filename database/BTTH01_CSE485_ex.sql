@@ -26,7 +26,7 @@
 -- CREATE VIEW vw_Music AS (SELECT bv.ma_bviet, bv.tieude, bv.ten_bhat, tl.ten_tloai, bv.tomtat, bv.noidung, tg.ten_tgia, bv.ngayviet, bv.hinhanh FROM baiviet bv LEFT JOIN tacgia tg ON bv.ma_tgia = tg.ma_tgia LEFT JOIN theloai tl ON bv.ma_tloai = tl.ma_tloai);
 
 # 4j
--- DELIMITER $$ CREATE PROCEDURE `sp_DSBaiViet` (IN `TenTheLoai` VARCHAR(100)) BEGIN IF NOT EXISTS (SELECT ma_tloai FROM theloai WHERE ten_tloai = TenTheLoai) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại thể loại này'; END IF; SELECT * FROM baiviet WHERE ma_tloai = (SELECT ma_tloai FROM theloai WHERE ten_tloai = TenTheLoai); END$$ DELIMITER;
+-- DELIMITER $$ CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_DSBaiViet`(IN `TenTheLoai` VARCHAR(100)) BEGIN IF NOT EXISTS (SELECT ma_tloai FROM theloai WHERE ten_tloai = TenTheLoai) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Không tồn tại thể loại này'; END IF; SELECT * FROM baiviet WHERE ma_tloai = (SELECT ma_tloai FROM theloai WHERE ten_tloai = TenTheLoai); END$$ DELIMITER ;
 
 # 4k
 -- ALTER TABLE theloai ADD SLBaiViet INT UNSIGNED NOT NULL DEFAULT 0 AFTER ten_tloai;
@@ -37,7 +37,7 @@
 --Trigger khi sửa bài viết
 -- DROP TRIGGER IF EXISTS `tg_CapNhatTheLoai_SuaBaiViet`; DELIMITER $$ CREATE TRIGGER `tg_CapNhatTheLoai_SuaBaiViet` AFTER UPDATE ON `baiviet` FOR EACH ROW BEGIN IF NEW.ma_tloai != OLD.ma_tloai THEN  UPDATE theloai SET SLBaiViet = SLBaiViet + 1 WHERE ma_tloai = NEW.ma_tloai; UPDATE theloai SET SLBaiViet = SLBaiViet - 1 WHERE ma_tloai = OLD.ma_tloai; END IF; END $$ DELIMITER;
 
--- Trigger khi 
+-- Trigger khi xóa bài viết
 -- DROP TRIGGER IF EXISTS `tg_CapNhatTheLoai_XoaBaiViet`; DELIMITER $$ CREATE TRIGGER `tg_CapNhatTheLoai_XoaBaiViet` AFTER DELETE ON `baiviet` FOR EACH ROW BEGIN  UPDATE theloai SET SLBaiViet = SLBaiViet - 1 WHERE ma_tloai = OLD.ma_tloai; END $$ DELIMITER;
 
 
