@@ -1,4 +1,4 @@
-<?php include "./includes/header.php" ?>
+<?php include "../includes/header.php" ?>
     <main class="container mt-5 mb-5">
         <!-- <h3 class="text-center text-uppercase mb-3 text-primary">CẢM NHẬN VỀ BÀI HÁT</h3> -->
         <div class="row">
@@ -59,4 +59,4 @@
             </div>
         </div>
     </main>
-<?php include "../includes/footer.php" ?>
+<?php include "../../includes/footer.php" ?>
