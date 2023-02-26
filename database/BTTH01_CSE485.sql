@@ -46,7 +46,7 @@ CREATE TABLE `baiviet` (
 --
 
 CREATE TABLE `tacgia` (
-  `ma_tgia` int UNSIGNED NOT NULL,
+  `ma_tgia` int UNSIGNED NOT NULL ,
   `ten_tgia` varchar(100) NOT NULL,
   `hinh_tgia` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
