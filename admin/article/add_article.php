@@ -45,9 +45,10 @@
                     <textarea class="form-control" aria-label="With textarea" name="tomtat"><?= '' ?></textarea>
                 </div>
 
-                <div class="input-group mt-3 mb-3 flex-nowrap">
+                <div class="input-group mt-3 mb-3 flex-nowrap">imgUpload
                     <span class="input-group-text" id="lblCatName">Nội dung</span>
-                    <textarea id="ckeditor" class="form-control" aria-label="With textarea" name="noidung"><?= '' ?></textarea>
+                    <textarea id="ckeditor" class="form-control" aria-label="With textarea"
+                        name="noidung"><?= '' ?></textarea>
                 </div>
 
                 <div class="input-group mt-3 mb-3">

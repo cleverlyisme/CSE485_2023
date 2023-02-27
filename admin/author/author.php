@@ -1,6 +1,28 @@
 <?php 
         include "../includes/header.php";
         include "../../includes/database-connection.php";
+                if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $query_article = "DELETE FROM baiviet WHERE ma_tgia=:ma_tgia";
+            $query_article_run = $pdo->prepare($query_article);
+            $data = [
+                ':ma_tgia' => $id,
+            ];
+            $query_article_execute = $query_article_run->execute($data);
+            
+            if($query_article_execute) {
+                $query = "DELETE FROM tacgia WHERE ma_tgia=:ma_tgia;";
+                $query_run = $pdo->prepare($query);
+                $data = [
+                    ':ma_tgia' => $id,
+                ];
+                $query_execute = $query_run->execute($data);
+                header("Location: author.php");
+                exit(0);
+            }
+            ;
+        }
+        ;
 ?>
 
 <main class="container mt-5 mb-5">
@@ -33,10 +55,11 @@
                         <td><?= $row['ten_tgia']; ?></td>
                         <td class="w-25"><img src=<?= $row['hinh_tgia']; ?> alt="" class="w-25 "></td>
                         <td>
-                            <a href="edit_category.php?id=1"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="edit_author.php?id=<?= $row['ma_tgia'] ?>"><i
+                                    class="fa-solid fa-pen-to-square"></i></a>
                         </td>
                         <td>
-                            <a href=""><i class="fa-solid fa-trash"></i></a>
+                            <a href="author.php?id=<?= $row['ma_tgia'] ?>"><i class="fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
                     <?php
