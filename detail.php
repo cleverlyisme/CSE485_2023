@@ -13,7 +13,7 @@
 
     <div class="row mb-5">
         <div class="col-sm-4">
-            <img src="<?php echo ($result[0]['hinhanh'])?>"
+            <img src="./images/songs/<?php echo ($result[0]['hinhanh'])?>"
                 class="img-fluid" alt="...">
 
         </div>
