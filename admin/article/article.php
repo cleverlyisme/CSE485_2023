@@ -7,6 +7,11 @@
     $data = getAllArticles($pdo);
 ?>
 <main class="container mt-5 mb-5">
+    <?php
+        if(isset($_GET['error'])){
+            echo "<script>alert({$_GET['error']})</script>";
+        }
+    ?>
     <div class="row">
         <div class="col-sm">
             <a href="add_article.php" class="btn btn-success">Thêm mới</a>

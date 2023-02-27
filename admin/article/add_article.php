@@ -6,7 +6,6 @@
     include "../../services/category.service.php";
     include "../../services/author.service.php";
 
-    // $article = getArticleById($pdo, $id);
     $categories = getAllCategories($pdo);
     $authors = getAllAuthors($pdo);
 ?>
@@ -19,7 +18,7 @@
     <div class="row">
         <div class="col-sm">
             <h3 class="text-center text-uppercase fw-bold">Thêm bài viết</h3>
-            <form action="../process/article/edit.article.process.php" method="post" enctype="multipart/form-data">
+            <form action="../process/article/add.article.process.php" method="post" enctype="multipart/form-data">
                 <div class="input-group mt-3 mb-3">
                     <span class="input-group-text" id="lblCatName">Tên bài viết</span>
                     <input type="text" class="form-control" name="tieude" value="<?= '' ?>">
