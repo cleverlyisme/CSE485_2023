@@ -3,7 +3,6 @@
 <?php
     require './includes/database-connection.php';
     require './includes/functions.php';
-    require './includes/inc_change_slug.php';
     $id = $_GET['id'];
     $sql = "SELECT baiviet.ma_bviet, baiviet.tieude, baiviet.ten_bhat,baiviet.tomtat, tacgia.ten_tgia, theloai.ten_tloai, baiviet.ngayviet, baiviet.hinhanh FROM baiviet JOIN tacgia ON baiviet.ma_tgia = tacgia.ma_tgia JOIN theloai ON baiviet.ma_tloai = theloai.ma_tloai WHERE baiviet.ma_bviet = '" . $id . "'";
     $result = pdo($pdo, $sql)->fetchAll();
@@ -14,7 +13,7 @@
 
     <div class="row mb-5">
         <div class="col-sm-4">
-            <img src="images/songs/<?php echo !empty($result[0]['hinhanh']) ? $result[0]['hinhanh'] : (str_replace('-','',create_slug($result[0]['ten_bhat'])).".jpg")  ?>"
+            <img src="<?php echo ($result[0]['hinhanh'])?>"
                 class="img-fluid" alt="...">
 
         </div>
