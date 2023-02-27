@@ -18,23 +18,27 @@
         $ngayviet = $_POST["ngayviet"];
 
         if ($tieude == '' || $ten_bhat == '' || $tomtat == '' || $ngayviet == '')
-            header("Location:../../article/edit_article.php?id=$ma_bviet&error='Invalid value'");
+            header("Location:../../article/article.php?id=$ma_bviet&error='Giá trị không hợp lệ'");
         
         if (!basename($_FILES["imgUpload"]["name"])) {
             $sql = "UPDATE baiviet SET tieude=:tieude, ten_bhat=:ten_bhat, ma_tloai=:ma_tloai, tomtat=:tomtat, noidung=:noidung, ma_tgia=:ma_tgia, ngayviet=:ngayviet WHERE ma_bviet=:ma_bviet;";
                     
-            pdo($pdo, $sql, [
-                'tieude' => $tieude, 
-                'ten_bhat' => $ten_bhat,
-                'ma_tloai' => $ma_tloai,
-                'tomtat' => $tomtat,
-                'noidung' => $noidung,
-                'ma_tgia' => $ma_tgia,
-                'ngayviet' => $ngayviet,
-                'ma_bviet' => $ma_bviet
-            ]);
+            try {
+                pdo($pdo, $sql, [
+                    'tieude' => $tieude, 
+                    'ten_bhat' => $ten_bhat,
+                    'ma_tloai' => $ma_tloai,
+                    'tomtat' => $tomtat,
+                    'noidung' => $noidung,
+                    'ma_tgia' => $ma_tgia,
+                    'ngayviet' => $ngayviet,
+                    'ma_bviet' => $ma_bviet
+                ]);
+            } catch (Exception $e) { 
+                header("Location:../../article/article.php?error='Cập nhật thất bại'");
+            }
 
-            header("Location:../../article/edit_article.php?id=$ma_bviet");
+            header("Location:../../article/article.php");
         } else {
             $check = getimagesize($_FILES["imgUpload"]["tmp_name"]);
             if($check !== false) {
@@ -57,21 +61,25 @@
                 if (move_uploaded_file($_FILES["imgUpload"]["tmp_name"], $target_file)) {
                     $sql = "UPDATE baiviet SET tieude=:tieude, ten_bhat=:ten_bhat, ma_tloai=:ma_tloai, tomtat=:tomtat, noidung=:noidung, ma_tgia=:ma_tgia, ngayviet=:ngayviet, hinhanh=:hinhanh WHERE ma_bviet=:ma_bviet;";
                     
-                    pdo($pdo, $sql, [
-                        'tieude' => $tieude, 
-                        'ten_bhat' => $ten_bhat,
-                        'ma_tloai' => $ma_tloai,
-                        'tomtat' => $tomtat,
-                        'noidung' => $noidung,
-                        'ma_tgia' => $ma_tgia,
-                        'ngayviet' => $ngayviet,
-                        'hinhanh' => basename($_FILES["imgUpload"]["name"]),
-                        'ma_bviet' => $ma_bviet
-                    ]);
+                    try {
+                        pdo($pdo, $sql, [
+                            'tieude' => $tieude, 
+                            'ten_bhat' => $ten_bhat,
+                            'ma_tloai' => $ma_tloai,
+                            'tomtat' => $tomtat,
+                            'noidung' => $noidung,
+                            'ma_tgia' => $ma_tgia,
+                            'ngayviet' => $ngayviet,
+                            'hinhanh' => basename($_FILES["imgUpload"]["name"]),
+                            'ma_bviet' => $ma_bviet
+                        ]);
+                    } catch (Exception $e) { 
+                        header("Location:../../article/article.php?error='Cập nhật thất bại'");
+                    }
 
-                    header("Location:../../article/edit_article.php?id=$ma_bviet");
+                    header("Location:../../article/article.php");
                 } else {
-                    header("Location:../../article/edit_article.php?id=$ma_bviet&error='Cập nhật ảnh thất bại'");
+                    header("Location:../../article/article.php?error='Cập nhật ảnh thất bại'");
                 }
             }
         }

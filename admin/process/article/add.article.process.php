@@ -22,15 +22,19 @@
         if (!basename($_FILES["imgUpload"]["name"])) {
             $sql = "INSERT INTO baiviet (tieude, ten_bhat, ma_tloai, tomtat, noidung, ma_tgia, ngayviet) VALUE (:tieude, :ten_bhat, :ma_tloai, :tomtat, :noidung, :ma_tgia, :ngayviet);";
                     
-            pdo($pdo, $sql, [
-                'tieude' => $tieude, 
-                'ten_bhat' => $ten_bhat,
-                'ma_tloai' => $ma_tloai,
-                'tomtat' => $tomtat,
-                'noidung' => $noidung,
-                'ma_tgia' => $ma_tgia,
-                'ngayviet' => $ngayviet,
-            ]);
+            try {
+                pdo($pdo, $sql, [
+                    'tieude' => $tieude, 
+                    'ten_bhat' => $ten_bhat,
+                    'ma_tloai' => $ma_tloai,
+                    'tomtat' => $tomtat,
+                    'noidung' => $noidung,
+                    'ma_tgia' => $ma_tgia,
+                    'ngayviet' => $ngayviet,
+                ]);
+            } catch (Exception $e) { 
+                header("Location:../../article/article.php?error='Thêm thất bại'");
+            }
 
             header("Location:../../article/article.php");
         } else {
@@ -55,16 +59,20 @@
                 if (move_uploaded_file($_FILES["imgUpload"]["tmp_name"], $target_file)) {
                     $sql = "INSERT INTO baiviet (tieude, ten_bhat, ma_tloai, tomtat, noidung, ma_tgia, ngayviet, hinhanh) VALUE (:tieude, :ten_bhat, :ma_tloai, :tomtat, :noidung, :ma_tgia, :ngayviet, :hinhanh);";
                     
-                    pdo($pdo, $sql, [
-                        'tieude' => $tieude, 
-                        'ten_bhat' => $ten_bhat,
-                        'ma_tloai' => $ma_tloai,
-                        'tomtat' => $tomtat,
-                        'noidung' => $noidung,
-                        'ma_tgia' => $ma_tgia,
-                        'ngayviet' => $ngayviet,
-                        'hinhanh' => basename($_FILES["imgUpload"]["name"])
-                    ]);
+                    try {
+                        pdo($pdo, $sql, [
+                            'tieude' => $tieude, 
+                            'ten_bhat' => $ten_bhat,
+                            'ma_tloai' => $ma_tloai,
+                            'tomtat' => $tomtat,
+                            'noidung' => $noidung,
+                            'ma_tgia' => $ma_tgia,
+                            'ngayviet' => $ngayviet,
+                            'hinhanh' => basename($_FILES["imgUpload"]["name"])
+                        ]);
+                    } catch (Exception $e) { 
+                        header("Location:../../article/article.php?error='Thêm thất bại'");
+                    }
 
                     header("Location:../../article/article.php");
                 } else {
