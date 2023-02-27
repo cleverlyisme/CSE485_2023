@@ -10,3 +10,8 @@ function getArticleById(PDO $pdo, int $id) {
 
     return pdo($pdo, $sql, ['ma_bviet' => $id])[0];
 }
+
+function getArticleByName(PDO $pdo, string $tieude){
+    $sql = "SELECT ma_bviet, tieude, hinhanh FROM baiviet WHERE tieude REGEXP :tieude;";
+    return pdo($pdo, $sql, ['tieude'=> $tieude]);
+}

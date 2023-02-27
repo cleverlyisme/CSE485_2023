@@ -1,49 +1,12 @@
 <?php 
-            require './includes/database-connection.php';  
-            require './includes/functions.php';  
-            require './includes/creat-slug.php';
-            $sql = "SELECT * FROM `baiviet`";
-            $arr = pdo($pdo, $sql)->fetchAll();  
+            include './includes/database-connection.php';  
+            include './includes/functions.php';  
+            include './includes/header.php';
+            include './services/article.service.php';
+          
+            if (isset($_POST['search'])) $data=$_POST['search'] != '' ? getArticleByName($pdo, $_POST['search']) : getAllArticles($pdo);
+            else $data = getAllArticles($pdo);
     ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music for Life</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
-            <div class="container-fluid">
-                <div class="my-logo">
-                    <a class="navbar-brand" href="#">
-                        <img src="images/logo2.png" alt="" class="img-fluid">
-                    </a>
-                </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="./login.php">Đăng nhập</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Nội dung cần tìm" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Tìm</button>
-                </form>
-                </div>
-            </div>
-        </nav>
-
         <div id="carouselExampleIndicators" class="carousel slide">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -76,26 +39,22 @@
         <h3 class="text-center text-uppercase mb-3 text-primary">TOP bài hát yêu thích</h3>
         <div class="row">
         <?php 
-                foreach($arr as $key => $item){
+                foreach($data as $baiviet){
                     ?>
                         <div class="col-sm-3">
-                            <a href="detail.php?id=<?php echo $item['ma_bviet'] ?>"><div class="card mb-2" style="width: 100%;">
-                                <img src="images/songs/<?php echo !empty($item['hinhanh']) ? $item['hinhanh'] : (str_replace('-','',create_slug($item['ten_bhat'])).".jpg")  ?>" class="card-img-top" alt="...">
+                              <div class="card mb-2" style="width: 100%;">
+                                <img src="images/songs/<?= $baiviet['hinhanh'] ?>" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title text-center">
-                                        <a href="detail.php?id=<?php echo $item['ma_bviet'] ?>" class="text-decoration-none"><?php echo $item['ten_bhat'] ?></a>
+                                        <a href="detail.php?id=<?= $baiviet['ma_bviet'] ?>" class="text-decoration-none"><?= $baiviet['tieude'] ?></a>
                                     </h5>
                                 </div>
-                            </div></a>
+                            </div>
                         </div>
                     <?php
                 }
             ?>
         </div>
     </main>
-    <footer class="bg-white d-flex justify-content-center align-items-center border-top border-secondary  border-2" style="height:80px">
-        <h4 class="text-center text-uppercase fw-bold">TLU's music garden</h4>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-</body>
-</html>
+    <?php include "./includes/footer.php" ?>
+    
