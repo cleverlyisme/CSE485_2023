@@ -1,7 +1,7 @@
 <?php 
-            include './includes/database-connection.php';  
-           include './includes/functions.php';  
-          
+            require './includes/database-connection.php';  
+            require './includes/functions.php';  
+            require './includes/creat-slug.php';
             $sql = "SELECT * FROM `baiviet`";
             $arr = pdo($pdo, $sql)->fetchAll();  
     ?>
@@ -17,32 +17,32 @@
 </head>
 <body>
     <header>
-        <na class="nab3">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary shadow p-3 bg-white rounded">
             <div class="container-fluid">
                 <div class="my-logo">
-                    <a class="nabar-brand" href="#">
+                    <a class="navbar-brand" href="#">
                         <img src="images/logo2.png" alt="" class="img-fluid">
                     </a>
                 </div>
-                <button class="nt" type="button" data-bs-toggle="collapse" data-bs-target="#nabarSupportedContent" aria-controls="nabarSupportedContent" aria-expanded="false" aria-label="Toggle naigation">
-                <span class="nt-icon"></span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse nabar-collapse" id="nabarSupportedContent">
-                <ul class="nabar-na me-auto mb-2 mb-lg-0">
-                    <li class="na-item">
-                    <a class="na-link active" aria-current="page" href="./">Trang chủ</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="./">Trang chủ</a>
                     </li>
-                    <li class="na-item">
-                    <a class="na-link" href="./login.php">Đăng nhập</a>
+                    <li class="nav-item">
+                    <a class="nav-link" href="./login.php">Đăng nhập</a>
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
-                    <input class="form-control" type="search" placeholder="Nội dung cần tìm" aria-label="Search">
-                    <button class="btn-outline" type="submit">Tìm</button>
+                    <input class="form-control me-2" type="search" placeholder="Nội dung cần tìm" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Tìm</button>
                 </form>
                 </div>
             </div>
-        </na>
+        </nav>
 
         <div id="carouselExampleIndicators" class="carousel slide">
             <div class="carousel-indicators">
@@ -61,19 +61,19 @@
                 <img src="images/slideshow/slide03.jpg" class="d-block w-100" alt="...">
                 </div>
             </div>
-            <button class="ccontrol-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="ccontrol-prev-icon" aria-hidden="true"></span>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="ccontrol-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="ccontrol-next-icon" aria-hidden="true"></span>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
             </div>
     </header>
 
     <main class="container-fluid mt-3">
-        <h3 class="text-center">TOP bài hát yêu thích</h3>
+        <h3 class="text-center text-uppercase mb-3 text-primary">TOP bài hát yêu thích</h3>
         <div class="row">
         <?php 
                 foreach($arr as $key => $item){

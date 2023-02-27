@@ -1,6 +1,6 @@
 <?php
 /**
- * Chuyển đổi chuỗi kí tự thành dạng slug dùng cho việc tạo friendly url.
+ 
  * @access    public
  * @param string
  * @return    string
