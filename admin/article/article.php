@@ -40,7 +40,9 @@
                         <td scope="row"><?= $baiviet['tomtat'] ?></td>
                         <td scope="row"><?= $baiviet['ten_tgia'] ?></td>
                         <td scope="row"><?= $baiviet['ngayviet'] ?></td>
-                        <td scope="row"><?= $baiviet['hinhanh'] ?></td>
+                        <td scope="row" class="song-img">
+                            <img src="../../images/songs/<?= $baiviet['hinhanh'] ?>" alt="Bài viết">
+                        </td>
                         <td>
                             <a href="<?= "edit_article.php?id=" . $baiviet['ma_bviet'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                         </td>
