@@ -18,7 +18,6 @@ $dsn = "$type:host=$server;dbname=$db;port=$port;charset=$charset";
 try {                                                         
     $pdo = new PDO($dsn, $username, "", $options);          
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "OK";
 } catch (PDOException $e) {                                     
     throw new PDOException($e->getMessage(), $e->getCode());        
 }
